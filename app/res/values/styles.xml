@@ -16,15 +16,18 @@
   ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
         <item name="android:tabWidgetStyle">@android:style/Widget.TabWidget</item>
         <!--
             <item name="colorPrimary">@color/colorPrimary</item>
             <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
             <item name="colorAccent">@color/colorAccent</item>
          -->
+    </style>
+    <style name="AppTheme.Actionbar" parent="Theme.AppCompat">
+        <!-- hide title for pre ICS -->
+        <item name="windowNoTitle">true</item>
     </style>
     <style name="ButtonText" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textColor">@color/btn_text_color</item>
