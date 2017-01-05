@@ -21,8 +21,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.LocalActivityManager;
 import android.app.Service;
-import android.app.TabActivity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,6 +44,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,7 +68,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainLayout extends TabActivity
+public class MainLayout extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private Drawable myGetDrawable(int resId) {
@@ -77,6 +78,10 @@ public class MainLayout extends TabActivity
     private enum UpgradeState {
         UNKNOWN, NEW, UPGRADE, DOWNGRADE, SAME
     }
+
+    //Implementation of TabActivity, should be rewritten
+    private TabHost mTabHost;
+    private LocalActivityManager mLam;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +138,11 @@ public class MainLayout extends TabActivity
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
         PreferenceManager.setDefaultValues(this, R.xml.audio_cue_settings, true);
 
-        TabHost tabHost = getTabHost(); // The activity TabHost
+        mLam = new LocalActivityManager(this, false);
+        mLam.dispatchCreate(savedInstanceState);
+        mTabHost = (TabHost) findViewById(R.id.tabhost); // The activity TabHost
+        mTabHost.setup(mLam);
+        TabHost tabHost = mTabHost;
 
         tabHost.addTab(tabHost.newTabSpec("Start")
                 .setIndicator(getString(R.string.Start), myGetDrawable(R.drawable.ic_tab_main))
@@ -364,7 +373,7 @@ public class MainLayout extends TabActivity
                 i = new Intent(this, AudioCueSettingsActivity.class);
                 break;
             case R.id.menu_settings:
-                getTabHost().setCurrentTab(3);
+                mTabHost.setCurrentTab(3);
                 return true;
             case R.id.menu_rate:
                 onRateClick.onClick(null);
@@ -377,6 +386,18 @@ public class MainLayout extends TabActivity
             startActivity(i);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        mLam.dispatchResume();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        mLam.dispatchPause(isFinishing());
     }
 
     /**
