@@ -16,15 +16,27 @@
   ~  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+   <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme.Toolbar"
+        app:popupTheme="@style/AppTheme.Popup"
+        tools:ignore="UnusedAttribute"/>
 
     <LinearLayout
         android:id="@+id/linear_layout0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/my_toolbar"
         android:orientation="horizontal" >
 
         <TextView

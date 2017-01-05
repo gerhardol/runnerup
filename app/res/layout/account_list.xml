@@ -18,7 +18,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme.Toolbar"
+        app:popupTheme="@style/AppTheme.Popup"
+        tools:ignore="UnusedAttribute"/>
 
     <ListView
         android:id="@+id/account_list"
@@ -26,7 +38,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_below="@id/my_toolbar" >
     </ListView>
 
 </RelativeLayout>

@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -114,6 +115,8 @@ public class HRSettingsActivity extends AppCompatActivity implements HRClient {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hr_settings);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         WidgetUtil.addLegacyOverflowButton(getWindow());
 
         providers = HRManager.getHRProviderList(this);

@@ -31,6 +31,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,6 +80,8 @@ public class AccountActivity extends AppCompatActivity implements Constants {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         WidgetUtil.addLegacyOverflowButton(getWindow());
 
         Intent intent = getIntent();

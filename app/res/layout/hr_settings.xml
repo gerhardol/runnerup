@@ -2,13 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.HRSettingsActivity" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.HRSettingsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme.Toolbar"
+        app:popupTheme="@style/AppTheme.Popup"
+        tools:ignore="UnusedAttribute"/>
 
     <LinearLayout
         android:id="@+id/linear_layout0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/my_toolbar"
         android:orientation="horizontal" >
 
         <TextView

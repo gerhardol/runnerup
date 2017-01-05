@@ -30,6 +30,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -121,6 +122,8 @@ public class DetailActivity extends AppCompatActivity implements Constants {
         super.onCreate(savedInstanceState);
         MapWrapper.start(this);
         setContentView(R.layout.detail);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         WidgetUtil.addLegacyOverflowButton(getWindow());
 
         Intent intent = getIntent();

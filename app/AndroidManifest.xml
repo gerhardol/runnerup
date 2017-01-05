@@ -89,16 +89,13 @@
 		<activity android:name=".view.AudioCueSettingsActivity"/>
 
 		<activity android:name=".view.DetailActivity"
-			android:configChanges="orientation|screenSize|uiMode"
-		    android:theme="@style/AppTheme.Actionbar" />
+			android:configChanges="orientation|screenSize|uiMode"/>
 
 		<activity android:name=".view.HistoryActivity"/>
 
-		<activity android:name=".view.AccountListActivity"
-			android:theme="@style/AppTheme.Actionbar" />
+		<activity android:name=".view.AccountListActivity"/>
 
-		<activity android:name=".view.AccountActivity"
-			android:theme="@style/AppTheme.Actionbar" />
+		<activity android:name=".view.AccountActivity"/>
 
 		<activity android:name=".view.UploadActivity"/>
 
@@ -130,11 +127,9 @@
 
 		<activity android:name=".export.oauth2client.OAuth2Activity"/>
 
-		<activity android:name=".view.HRSettingsActivity"
-			android:theme="@style/AppTheme.Actionbar" />
+		<activity android:name=".view.HRSettingsActivity"/>
 
-		<activity android:name=".view.HRZonesActivity"
-			android:theme="@style/AppTheme.Actionbar" />
+		<activity android:name=".view.HRZonesActivity"/>
 
 		<service android:name=".tracker.Tracker" />
 		<service android:name=".export.RunnerUpLiveSynchronizer$LiveService" />

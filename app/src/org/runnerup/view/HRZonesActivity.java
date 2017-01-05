@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -77,6 +78,8 @@ public class HRZonesActivity extends AppCompatActivity implements Constants {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heartratezones);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         WidgetUtil.addLegacyOverflowButton(getWindow());
 
         hrZones = new HRZones(this);
