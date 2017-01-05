@@ -59,7 +59,6 @@ import org.runnerup.common.util.Constants.DB;
 import org.runnerup.db.DBHelper;
 import org.runnerup.util.FileUtil;
 import org.runnerup.util.Formatter;
-import org.runnerup.widget.WidgetUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -153,7 +152,7 @@ public class MainLayout extends TabActivity
                 .setContent(new Intent(this, SettingsActivity.class)));
 
         tabHost.setCurrentTab(0);
-        WidgetUtil.addLegacyOverflowButton(getWindow());
+        //WidgetUtil.addLegacyOverflowButton(getWindow());
 
         if (upgradeState == UpgradeState.UPGRADE) {
             whatsNew();

@@ -86,8 +86,7 @@
 
 		<activity android:name=".view.SettingsActivity"/>
 
-		<activity android:name=".view.AudioCueSettingsActivity"
-			android:theme="@style/AppTheme.Actionbar" />
+		<activity android:name=".view.AudioCueSettingsActivity"/>
 
 		<activity android:name=".view.DetailActivity"
 			android:configChanges="orientation|screenSize|uiMode"
@@ -129,8 +128,7 @@
             android:grantUriPermissions="true"
             tools:ignore="ExportedContentProvider" />
 
-		<activity android:name=".export.oauth2client.OAuth2Activity"
-			android:theme="@style/AppTheme.Actionbar" />
+		<activity android:name=".export.oauth2client.OAuth2Activity"/>
 
 		<activity android:name=".view.HRSettingsActivity"
 			android:theme="@style/AppTheme.Actionbar" />
