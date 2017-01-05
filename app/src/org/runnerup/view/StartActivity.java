@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,7 +90,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class StartActivity extends Activity implements TickListener, GpsInformation {
+public class StartActivity extends AppCompatActivity implements TickListener, GpsInformation {
 
     private final static String TAB_BASIC = "basic";
     private final static String TAB_INTERVAL = "interval";

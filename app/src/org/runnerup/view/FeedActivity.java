@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,7 +56,7 @@ import java.util.Observer;
 import java.util.Set;
 
 
-public class FeedActivity extends Activity implements Constants {
+public class FeedActivity extends AppCompatActivity implements Constants {
 
     private SQLiteDatabase mDB = null;
     private SyncManager syncManager = null;

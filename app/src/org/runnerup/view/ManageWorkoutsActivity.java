@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -76,7 +77,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-public class ManageWorkoutsActivity extends Activity implements Constants {
+public class ManageWorkoutsActivity extends AppCompatActivity implements Constants {
 
     private SQLiteDatabase mDB = null;
 
