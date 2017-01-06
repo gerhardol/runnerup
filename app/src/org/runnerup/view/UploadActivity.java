@@ -18,7 +18,6 @@
 package org.runnerup.view;
 
 import android.annotation.SuppressLint;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -53,7 +52,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class UploadActivity extends ListActivity implements Constants {
+public class UploadActivity extends AppCompatListActivity implements Constants {
 
     private long synchronizerID = -1;
     private String synchronizer = null;
