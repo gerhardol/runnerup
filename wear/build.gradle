@@ -6,10 +6,11 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 20
+        minSdkVersion 23
         targetSdkVersion rootProject.ext.compileSdkVersion
         versionName rootProject.ext.versionName
         versionCode rootProject.ext.versionCode
+        wearAppUnbundled true
     }
 
     dexOptions {

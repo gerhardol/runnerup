@@ -130,7 +130,7 @@ repositories {
 dependencies {
     compile project(':common')
     compile project(':hrdevice')
-    latestWearApp project(':wear')
+    //latestWearApp project(':wear')
 
     latestCompile "com.android.support:design:${rootProject.ext.supportLibrary}"
 
