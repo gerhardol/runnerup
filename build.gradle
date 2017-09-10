@@ -8,9 +8,7 @@ buildscript {
 }
 
 repositories {
-    maven {
-        url "https://maven.google.com"
-    }
+    google()
 }
 
 project.ext {
@@ -19,9 +17,9 @@ project.ext {
     //Some settings may differ for 'froyo' release
     //minSdkVersion differs between modules
     buildToolsVersion = '26.0.1' //Update Travis manually
-    compileSdkVersion = 25 //Update Travis manually
-    targetSdkVersion = 25
-    supportLibrary = '25.3.1'
+    compileSdkVersion = 26 //Update Travis manually
+    targetSdkVersion = 26
+    supportLibrary = '26.0.2'
     googlePlayServicesVersion = '11.2.2'
     googleWearVersion = '2.0.5'
 
