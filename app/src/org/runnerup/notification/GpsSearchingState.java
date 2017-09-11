@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
+import org.runnerup.BuildConfig;
 import org.runnerup.R;
 import org.runnerup.common.util.Constants;
 import org.runnerup.tracker.GpsInformation;
@@ -23,8 +24,12 @@ public class GpsSearchingState implements NotificationState {
         this.context = context;
         this.gpsInformation = gpsInformation;
 
-        String chanId = NotificationStateManager.getChannelId(context);
-        builder = new NotificationCompat.Builder(context, chanId);
+        if (BuildConfig.FLAVOR.equals("froyo")) {
+            builder = new NotificationCompat.Builder(context);
+        } else {
+            String chanId = NotificationStateManager.getChannelId(context);
+            builder = new NotificationCompat.Builder(context, chanId);
+        }
         Intent i = new Intent(context, MainLayout.class);
         i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         i.putExtra(Constants.Intents.FROM_NOTIFICATION, true);
