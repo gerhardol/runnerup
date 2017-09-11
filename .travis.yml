@@ -31,7 +31,7 @@ android:
         - build-tools-26.0.1
         - android-25
         #- extra-android-m2repository
-        #- extra-google-m2repository
+        - extra-google-m2repository
         - extra-google-google_play_services
 
 notifications:
