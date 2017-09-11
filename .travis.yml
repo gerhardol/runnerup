@@ -5,6 +5,12 @@ language: android
 jdk:
   - oraclejdk8
 
+install:
+  - echo y | android update sdk -u -a -t tools
+  - echo y | android update sdk -u -a -t platform-tools
+  - echo y | android update sdk -u -a -t build-tools-26.0.1
+  - echo y | android update sdk -u -a -t android-26
+
 cache:
   directories:
     - $HOME/.gradle/caches/
@@ -24,8 +30,8 @@ android:
         - platform-tools #latest, 26.0.0 as of 2017-07-30
         - build-tools-26.0.1
         - android-25
-        - extra-android-m2repository
-        - extra-google-m2repository
+        #- extra-android-m2repository
+        #- extra-google-m2repository
         - extra-google-google_play_services
 
 notifications:
