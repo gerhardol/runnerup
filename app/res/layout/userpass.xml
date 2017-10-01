@@ -65,7 +65,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:autofillHints="AUTOFILL_HINT_USERNAME"/>
 
         </TableRow>
 
@@ -84,7 +85,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:autofillHints="AUTOFILL_HINT_PASSWORD" />
 
         </TableRow>
     </TableLayout>
