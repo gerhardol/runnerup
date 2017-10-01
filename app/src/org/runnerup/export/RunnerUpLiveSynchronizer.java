@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -189,7 +190,11 @@ public class RunnerUpLiveSynchronizer extends DefaultSynchronizer implements Wor
         msgIntent.putExtra(LiveService.PARAM_IN_USERNAME, username);
         msgIntent.putExtra(LiveService.PARAM_IN_PASSWORD, password);
         msgIntent.putExtra(LiveService.PARAM_IN_SERVERADRESS, postUrl);
-        context.startService(msgIntent);
+        if (Build.VERSION.SDK_INT >= 26) {
+            context.startForegroundService(msgIntent);
+        } else {
+            context.startService(msgIntent);
+        }
     }
 
     public static class LiveService extends IntentService {
