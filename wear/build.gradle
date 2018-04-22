@@ -61,8 +61,6 @@ dependencies {
     implementation project(':common')
 
     implementation "com.google.android.support:wearable:${rootProject.ext.googleWearVersion}"
-    //Implicit dependency https://issuetracker.google.com/issues/37131437 https://code.google.com/p/android/issues/detail?id=231325
-    compileOnly "com.google.android.wearable:wearable:${rootProject.ext.googleWearVersion}"
     implementation "com.google.android.gms:play-services-wearable:${rootProject.ext.googlePlayServicesVersion}"
 }
 
