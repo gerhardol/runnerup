@@ -20,11 +20,11 @@ project.ext {
     //Some settings may differ for 'froyo' release
     //minSdkVersion differs between modules
     buildToolsVersion = '27.0.3' //Update Travis manually
-    compileSdkVersion = 25 //Update Travis manually
-    targetSdkVersion = 25
+    compileSdkVersion = 27 //Update Travis manually
+    targetSdkVersion = 27
 
-    supportLibrary = '25.3.1'
-    googlePlayServicesVersion = '11.0.4'
+    supportLibrary = '27.1.1'
+    googlePlayServicesVersion = '15.0.0'
     googleWearVersion = '2.0.4'
 
     junitVersion = '4.12'
