@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import org.runnerup.R;
 import org.runnerup.common.util.Constants;
 import org.runnerup.util.Formatter;
+import org.runnerup.util.SupportWrapper;
 import org.runnerup.view.RunActivity;
 import org.runnerup.workout.Scope;
 import org.runnerup.workout.WorkoutInfo;
@@ -26,7 +27,7 @@ public class OngoingState implements NotificationState {
         this.context = context;
 
         String chanId = NotificationStateManager.getChannelId(context);
-        builder = new NotificationCompat.Builder(context, chanId);
+        builder = SupportWrapper.Builder(context, chanId);
         Intent i = new Intent(context, RunActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         i.putExtra(Constants.Intents.FROM_NOTIFICATION, true);
