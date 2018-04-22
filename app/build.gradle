@@ -93,27 +93,10 @@ android {
     }
 
     lintOptions {
-        //disable specific checks for specific paths
+        //Configure checks with paths
         lintConfig file("lint.xml")
         baseline file("lint-baseline.xml")
         checkReleaseBuilds true
-        //promote to error, must be handled
-        fatal 'InlinedApi', 'InconsistentArrays'
-        //Remove with AS3? https://issuetracker.google.com/issues/37131435
-        //TODO: See GradleCompatible comments, check manually with ./gradlew app:dependencies
-        warning 'GradleCompatible'
-        //Support lib > 25.0.1 _sometimes_ raises this issue. Should be fixed though
-        warning 'RestrictedApi'
-        // Ignore some specific checks completely
- 
-        //All translations will not be complete
-        ignore 'MissingTranslation'
-        //icon with all densities are not included - don't bother
-        ignore 'IconMissingDensityFolder'
-        //apply() is supported from SDK 9, but min version is 8
-        ignore 'ApplySharedPref'
-        //Support lib > 25.0.1 _sometimes_ raises this issue. Should be fixed though
-        warning 'RestrictedApi'
 
         showAll true
         //debug issues in Travis
@@ -134,9 +117,7 @@ dependencies {
     implementation project(':hrdevice')
     latestWearApp project(':wear')
 
-    //Lint bug: https://issuetracker.google.com/issues/231323
     latestImplementation "com.android.support:design:${rootProject.ext.supportLibrary}"
-
     //Lint bug: https://issuetracker.google.com/issues/231321
     //noinspection GradleDependency
     froyoImplementation 'com.android.support:design:24.1.0' //SDK <10 dropped in 24.2
@@ -147,7 +128,6 @@ dependencies {
         transitive=true
     }
     implementation 'com.jjoe64:graphview:4.2.1'
-
 
     testImplementation "junit:junit:${rootProject.ext.junitVersion}"
     testImplementation "org.mockito:mockito-core:${rootProject.ext.mockitoVersion}"
