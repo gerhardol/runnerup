@@ -25,7 +25,7 @@ project.ext {
 
     supportLibrary = '27.1.1'
     googlePlayServicesVersion = '15.0.0'
-    googleWearVersion = '2.0.4'
+    googleWearVersion = '2.3.0'
 
     junitVersion = '4.12'
     mockitoVersion = '2.3.7'

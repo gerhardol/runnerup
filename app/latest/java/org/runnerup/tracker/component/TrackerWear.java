@@ -66,7 +66,7 @@ import static com.google.android.gms.wearable.PutDataRequest.WEAR_URI_SCHEME;
 
 
 public class TrackerWear extends DefaultTrackerComponent
-        implements Constants, TrackerComponent, WorkoutObserver, NodeApi.NodeListener,
+        implements Constants, TrackerComponent, WorkoutObserver, /*NodeApi.NodeListener,*/
         MessageApi.MessageListener, DataApi.DataListener, WorkoutStepListener, ValueModel.ChangeListener<TrackerState> {
 
     public static final String NAME = "WEAR";
@@ -192,14 +192,14 @@ public class TrackerWear extends DefaultTrackerComponent
                         setData();
 
                         Wearable.MessageApi.addListener(mGoogleApiClient, TrackerWear.this);
-                        Wearable.NodeApi.addListener(mGoogleApiClient, TrackerWear.this);
+                        //Wearable.NodeApi.addListener(mGoogleApiClient, TrackerWear.this);
                         Wearable.DataApi.addListener(mGoogleApiClient, TrackerWear.this);
 
                         /* read already existing data */
                         readData();
 
                         /* get info about connected nodes in background */
-                        Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).
+                        /*Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).
 
                                 setResultCallback(
                                         new ResultCallback<NodeApi.GetConnectedNodesResult>() {
@@ -213,6 +213,7 @@ public class TrackerWear extends DefaultTrackerComponent
                                         }
 
                                 );
+                                */
                     }
 
                     @Override
@@ -467,7 +468,7 @@ public class TrackerWear extends DefaultTrackerComponent
 
         return wearNode != null;
     }
-
+/*
     @Override
     public void onPeerConnected(Node node) {
         //connectedNodes.add(node);
@@ -479,7 +480,7 @@ public class TrackerWear extends DefaultTrackerComponent
         if (wearNode != null && node.getId().contentEquals(wearNode))
             wearNode = null;
     }
-
+*/
     @Override
     public void onMessageReceived(final MessageEvent messageEvent) {
         Log.e(getName(), "onMessageReceived: " + messageEvent);
@@ -512,7 +513,7 @@ public class TrackerWear extends DefaultTrackerComponent
                 wearNode = null;
 
                 Wearable.MessageApi.removeListener(mGoogleApiClient, this);
-                Wearable.NodeApi.removeListener(mGoogleApiClient, this);
+                //Wearable.NodeApi.removeListener(mGoogleApiClient, this);
                 Wearable.DataApi.removeListener(mGoogleApiClient, this);
                 //connectedNodes.clear();
             }
