@@ -74,10 +74,9 @@ public class MainLayout extends TabActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private Drawable myGetDrawable(int resId) {
-        Drawable d = getResources().getDrawable(resId);
-        return d;
-    private Drawable myGetDrawable(int resId) {
         return getResources().getDrawable(resId);
+    }
+
     private View getTabView(CharSequence label, int iconResource) {
         View tabView = getLayoutInflater().inflate(R.layout.bottom_tab_indicator, null);
         ((TextView)tabView.findViewById(R.id.title)).setText(label);
