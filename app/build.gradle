@@ -124,7 +124,7 @@ dependencies {
 
     latestImplementation "com.google.android.gms:play-services-wearable:${rootProject.ext.googlePlayServicesVersion}"
     latestImplementation 'com.getpebble:pebblekit:4.0.1'
-    latestImplementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:5.1.1@aar'){
+    latestImplementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:6.0.1@aar'){
         transitive=true
     }
     implementation 'com.jjoe64:graphview:4.2.1'
