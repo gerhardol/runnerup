@@ -17,22 +17,16 @@
 
 package org.runnerup.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.widget.AdapterView;
 import android.widget.SpinnerAdapter;
 
-@TargetApi(Build.VERSION_CODES.FROYO)
 public class ClassicSpinner extends AppCompatSpinner implements SpinnerInterface {
-    SpinnerPresenter mPresenter;
 
     public ClassicSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        mPresenter = new SpinnerPresenter(context, attrs, this);
     }
 
     @Override

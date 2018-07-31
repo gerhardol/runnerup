@@ -17,7 +17,6 @@
 
 package org.runnerup.view;
 
-import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -29,7 +28,6 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -68,7 +66,6 @@ import org.runnerup.tracker.GpsInformation;
 import org.runnerup.tracker.Tracker;
 import org.runnerup.tracker.component.TrackerHRM;
 import org.runnerup.tracker.component.TrackerWear;
-import org.runnerup.util.Formatter;
 import org.runnerup.util.SafeParse;
 import org.runnerup.util.TickListener;
 import org.runnerup.widget.ClassicSpinner;
@@ -87,7 +84,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@TargetApi(Build.VERSION_CODES.FROYO)
 public class StartActivity extends AppCompatActivity implements TickListener, GpsInformation {
 
     private final static String TAB_BASIC = "basic";
@@ -108,33 +104,29 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
     private View hrIndicator = null;
     private View watchIndicator = null;
 
-    boolean batteryLevelMessageShown = false;
+    private boolean batteryLevelMessageShown = false;
 
-    TitleSpinner simpleTargetType = null;
-    TitleSpinner simpleTargetPaceValue = null;
-    TitleSpinner simpleTargetHrz = null;
-    AudioSchemeListAdapter simpleAudioListAdapter = null;
-    HRZonesListAdapter hrZonesAdapter = null;
+    private TitleSpinner simpleTargetType = null;
+    private TitleSpinner simpleTargetPaceValue = null;
+    private TitleSpinner simpleTargetHrz = null;
+    private AudioSchemeListAdapter simpleAudioListAdapter = null;
+    private HRZonesListAdapter hrZonesAdapter = null;
 
-    TitleSpinner intervalType = null;
-    TitleSpinner intervalTime = null;
-    TitleSpinner intervalDistance = null;
-    TitleSpinner intervalRestType = null;
-    TitleSpinner intervalRestTime = null;
-    TitleSpinner intervalRestDistance = null;
-    AudioSchemeListAdapter intervalAudioListAdapter = null;
+    private TitleSpinner intervalTime = null;
+    private TitleSpinner intervalDistance = null;
+    private TitleSpinner intervalRestTime = null;
+    private TitleSpinner intervalRestDistance = null;
+    private AudioSchemeListAdapter intervalAudioListAdapter = null;
 
-    TitleSpinner advancedWorkoutSpinner = null;
-    WorkoutListAdapter advancedWorkoutListAdapter = null;
-    Button advancedDownloadWorkoutButton = null;
-    Workout advancedWorkout = null;
-    ListView advancedStepList = null;
-    final WorkoutStepsAdapter advancedWorkoutStepsAdapter = new WorkoutStepsAdapter();
-    AudioSchemeListAdapter advancedAudioListAdapter = null;
+    private TitleSpinner advancedWorkoutSpinner = null;
+    private WorkoutListAdapter advancedWorkoutListAdapter = null;
+    private Button advancedDownloadWorkoutButton = null;
+    private Workout advancedWorkout = null;
+    private final WorkoutStepsAdapter advancedWorkoutStepsAdapter = new WorkoutStepsAdapter();
+    private AudioSchemeListAdapter advancedAudioListAdapter = null;
 
-    SQLiteDatabase mDB = null;
+    private SQLiteDatabase mDB = null;
 
-    Formatter formatter = null;
     private NotificationStateManager notificationStateManager;
     private GpsSearchingState gpsSearchingState;
     private GpsBoundState gpsBoundState;
@@ -150,7 +142,6 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         mDB = DBHelper.getWritableDatabase(this);
-        formatter = new Formatter(this);
 
         bindGpsTracker();
         mGpsStatus = new org.runnerup.tracker.GpsStatus(this);
@@ -188,9 +179,11 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
                 String hrDetail = getHRDetailString();
                 String toastString =
                         (gpsAccuracy.length() != 0 && hrDetail.length() != 0) ?
-                                gpsAccuracy + " • " + hrDetail : gpsAccuracy + hrDetail;
-                if (toastString.length() == 0)
+                                gpsAccuracy + " • " + hrDetail :
+                                gpsAccuracy + hrDetail;
+                if (toastString.length() == 0) {
                     toastString = getString(R.string.GPS_is_required);
+                }
                 Toast.makeText(StartActivity.this,
                         toastString,
                         Toast.LENGTH_SHORT).show();
@@ -229,12 +222,12 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
         simpleTargetHrz.setAdapter(hrZonesAdapter);
         simpleTargetType.setOnCloseDialogListener(simpleTargetTypeClick);
 
-        intervalType = (TitleSpinner) findViewById(R.id.interval_type);
+        TitleSpinner intervalType = (TitleSpinner) findViewById(R.id.interval_type);
         intervalTime = (TitleSpinner) findViewById(R.id.interval_time);
         intervalTime.setOnSetValueListener(onSetTimeValidator);
         intervalDistance = (TitleSpinner) findViewById(R.id.interval_distance);
         intervalType.setOnSetValueListener(intervalTypeSetValue);
-        intervalRestType = (TitleSpinner) findViewById(R.id.interval_rest_type);
+        TitleSpinner intervalRestType = (TitleSpinner) findViewById(R.id.interval_rest_type);
         intervalRestTime = (TitleSpinner) findViewById(R.id.interval_rest_time);
         intervalRestTime.setOnSetValueListener(onSetTimeValidator);
         intervalRestDistance = (TitleSpinner) findViewById(R.id.interval_rest_distance);
@@ -256,7 +249,7 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
         advancedWorkoutListAdapter.reload();
         advancedWorkoutSpinner.setAdapter(advancedWorkoutListAdapter);
         advancedWorkoutSpinner.setOnSetValueListener(new OnConfigureWorkoutsListener(advancedWorkoutListAdapter));
-        advancedStepList = (ListView) findViewById(R.id.advanced_step_list);
+        ListView advancedStepList = (ListView) findViewById(R.id.advanced_step_list);
         advancedStepList.setDividerHeight(0);
         advancedStepList.setAdapter(advancedWorkoutStepsAdapter);
         advancedDownloadWorkoutButton = (Button) findViewById(R.id.advanced_download_button);
@@ -282,10 +275,7 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
     }
 
     private class OnConfigureAudioListener implements OnSetValueListener {
-        AudioSchemeListAdapter adapter;
-
         OnConfigureAudioListener(AudioSchemeListAdapter adapter) {
-            this.adapter = adapter;
         }
 
         @Override
@@ -305,11 +295,7 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
     }
 
     private class OnConfigureWorkoutsListener implements OnSetValueListener {
-        WorkoutListAdapter adapter;
-
-        OnConfigureWorkoutsListener(WorkoutListAdapter adapter) {
-            this.adapter = adapter;
-        }
+        OnConfigureWorkoutsListener(WorkoutListAdapter adapter) {}
 
         @Override
         public String preSetValue(String newValue) throws IllegalArgumentException {
@@ -367,9 +353,7 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
         super.onPause();
 
         if (getAutoStartGps()) {
-            /**
-             * If autoStartGps, then stop it during pause
-             */
+            // If autoStartGps, then stop it during pause
             stopGps();
         } else {
             if (mTracker != null &&
@@ -601,14 +585,10 @@ public class StartActivity extends AppCompatActivity implements TickListener, Gp
             if (mTracker.getState() == TrackerState.CONNECTED) {
                 mGpsStatus.stop(StartActivity.this);
 
-                /**
-                 * unregister receivers
-                 */
+                // unregister receivers
                 unregisterStartEventListener();
 
-                /**
-                 * This will start the advancedWorkoutSpinner!
-                 */
+                // This will start the advancedWorkoutSpinner!
                 mTracker.setWorkout(prepareWorkout());
                 mTracker.start();
 
