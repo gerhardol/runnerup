@@ -83,7 +83,7 @@ public class TrackerCadence extends DefaultTrackerComponent implements SensorEve
             currentCadence = val;
         } else {
             //Low pass filter
-            final float alpha = 0.4f;
+            final float alpha = 0.2f;
             currentCadence = val * alpha + (1 - alpha) * currentCadence;
         }
 
