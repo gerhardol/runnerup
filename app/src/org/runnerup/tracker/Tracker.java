@@ -112,6 +112,7 @@ public class Tracker extends android.app.Service implements
     private double mHeartbeatMillis = 0; // since we might loose HRM connectivity...
     private long mMaxHR = 0;
     private double mCurrentSpeed = 0.0;
+    private double mCurrentSpeed2 = 0.0;
 
     private TrackerState nextState;
     private final ValueModel<TrackerState> state = new ValueModel<>(TrackerState.INIT);
@@ -709,6 +710,9 @@ public class Tracker extends android.app.Service implements
                 final float alpha = 0.4f;
                 mCurrentSpeed = val * alpha + (1 - alpha) * mCurrentSpeed;
 
+                //testing
+                val = (float) (distDiff * 1000.0 / timeDiff);
+                mCurrentSpeed2 = val * alpha + (1 - alpha) * mCurrentSpeed2;
             }
 
             if (internal || state.get() == TrackerState.STARTED) {
@@ -943,6 +947,9 @@ public class Tracker extends android.app.Service implements
             }
         }
         return mCurrentSpeed;
+    }
+    public Double getCurrentSpeed2() {
+        return mCurrentSpeed2;
     }
 
 

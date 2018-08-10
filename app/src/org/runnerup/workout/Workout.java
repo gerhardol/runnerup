@@ -366,6 +366,10 @@ public class Workout implements WorkoutComponent, WorkoutInfo {
         return 0;
     }
 
+    public double getSpeed2() {
+        return tracker.getCurrentSpeed2();
+    }
+
     @Override
     public double getDuration(Scope scope, Dimension dimension) {
         if (scope == Scope.STEP && currentStep != null) {

@@ -418,6 +418,13 @@ public class RunActivity extends AppCompatActivity implements TickListener {
 
         double cp = workout.getSpeed(Scope.CURRENT);
         currentPace.setText(formatter.formatPaceSpeed(Formatter.Format.TXT_SHORT, cp));
+        // testing
+        TextView currentPace2 = (TextView) findViewById(R.id.current_distance_unused);
+        cp = workout.getSpeed2();
+        currentPace2.setText(formatter.formatPaceSpeed(Formatter.Format.TXT_SHORT, cp));
+        TextView currentCadence = (TextView) findViewById(R.id.current_time_unused);
+        cp = workout.getCadence(Scope.CURRENT);
+        currentCadence.setText(formatter.formatCadence(Formatter.Format.TXT_SHORT, cp));
 
         if (mTracker.isComponentConnected(TrackerHRM.NAME)) {
             double ahr = workout.getHeartRate(Scope.ACTIVITY);
