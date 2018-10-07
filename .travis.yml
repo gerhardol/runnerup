@@ -32,23 +32,24 @@ android:
 notifications:
   email: false
 script:
-- ./gradlew assembleLatestRelease
+- "./gradlew assembleLatestRelease"
 before_install:
-- openssl aes-256-cbc -K $encrypted_a0871ed46938_key -iv $encrypted_a0871ed46938_iv -in debug.keystore.enc -out $HOME/debug.keystore -d
+- openssl aes-256-cbc -K $encrypted_a0871ed46938_key -iv $encrypted_a0871ed46938_iv
+  -in debug.keystore.enc -out $HOME/debug.keystore -d
 before_deploy:
 - cp $TRAVIS_BUILD_DIR/.keystore $HOME
 - cd app/build/outputs/apk/latest/release
-- ${ANDROID_HOME}/build-tools/$ANDROID_BUILD_TOOLS/zipalign -v 4 app-latest-universal-release.apk app-latest-universal-release-aligned.apk
-- apksigner sign --verbose -ks $HOME/debug.keystore --ks-pass env:storepass --key-pass env:keypass app-latest-universal-release-aligned.apk runnerup-latest-universal.apk
+- "${ANDROID_HOME}/build-tools/$ANDROID_BUILD_TOOLS/zipalign -v 4 app-latest-universal-release.apk
+  app-latest-universal-release-aligned.apk"
+- apksigner sign --verbose -ks $HOME/debug.keystore --ks-pass env:storepass --key-pass
+  env:keypass app-latest-universal-release-aligned.apk runnerup-latest-universal.apk
 - apksigner -verify runnerup-latest-universal.apk
 deploy:
   provider: releases
+  api_key:
+    secure: e4q2L+hhJtjtzasQvGIsr/MMYL2PDzTM+LHMY40AyXc9bauES3VdmqHLV+aAHM8+xRfsSRAj6rhL95KRXCBZLJS2KQUbljma+dRh7h8XZ9e/gy1fihjsGSqhqUp1k0oHBeH35iiJ0g35NIHMFl5qoBO4SJayv8Dz145Jy4NIUrPqyr6Zf4LPQoO58KF20twR26L4zKcOwCMDb0y+u8ARbjUR2mVfNrI/b5TN3ri3rLWdbNylgqA95hCJtT5Bs9H57Erl9526Ual6vtfc2S8I5D4vzPxQY+LkuVkNdZFy7l+wX+gEga4h0BV672IRWXUZjALbcHuvvfWewoqL0lZav6iwatTxo3Oj1NIS5KEkM2OmkPb6+tI0rgpVjIrKIjsrjZHhiLe/++6oIzatAjV7sxJVt+wAC5TOjY05l2gzNBeFR90K1V3LB0WxPm5YeyYNhnl2j4YaV4TxcSfWxm0z6JDqzP6HTKp1BtKwt2qb+fs3uuRzLHrFvvtGGj8iaI1snX3o+dFV9utivrf6sJDoP/XdGX+VxafCj03UmlJEfiSsdLP+rtlfhwutJfAUWEOIfHCsge6E5xvPdj89frloYL/1jurVVXROCFkyCrGZ2L/Dw4Ltv+bG/lSZLNTOpZK+T9BWzo74S5OMDwy6lvd7LXFoLRm1XQx8kITBh4v0dIg=
   file: runnerup-latest-universal.apk
-  skip_cleanup: true
-
   on:
     repo: gerhardol/runnerup
     tags: true
     jdk: oraclejdk8
-  api_key:
-    secure: "X5X9A0fanuAl8zRhDDegj/xdSRE6u1fWvChd28f/UXj73pB3NnfTf0BAmn8Nk3NrKI9PxLGRbdZfy7YvDcGOsm8PD+7dQkmcLpaS5CN4Lyz46l/1W2soAV0QIQjiS5KaLb01dQ33YF2n+3DW+ySKprcPEMJTj1mpV0n/S05bVdm9XtEPUMbZO/gutpmaq1sxqI/ym6cNbm+x6fXEP/CCkjsseZu+s/N6gFz3xEGdry3Amp/ep4kD5oOlIE5Gs+JuOIa1bRSUVAaW+QV2UUjMhucekgSWzD8oxeAZYOqg5GqocIk1hsEIP+DoLAxPqJIkmT4TczlZe6mqUvw2+DyhzKASd82knz4InCowPjoiE4dB22ZtFZFc4YJJTp1Ztv8YnSFRtNWdZ+B/X6tIbpbiaYjetDTzqV04kf7wTeSKr70oJHfGjvrG+cFX4gcMu4Rt89XOzUGpxCarp+05lYmP3DCNRYuWocb2ZX9JrgOQ0DSqS7HaVwZTBHbHhPGT9CdeorFe4et9yl+kczqF9zYQlCKVJVtX0CkrhUiOykxuZXA1CPzeB13ddgwWiVT3w9A9hEJuWCiBv12yjvN8H8NhF9de/dCiUMnr8+dPPYyQTuSZ+kfHWUXTrWqEb5hGf/Fy1Ae1cGcMK4KWpx4Pnd2ffRNT8TyFFdcD6bVjI6+DdRI="
