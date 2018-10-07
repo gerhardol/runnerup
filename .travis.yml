@@ -1,39 +1,54 @@
-#dist: trusty #Force trusty for git-lfs (default from 2017-09)
-
+env:
+  global:
+  - ANDROID_API=28
+  - ANDROID_BUILD_TOOLS=28.0.3
+  - ADB_INSTALL_TIMEOUT=5
+  - secure: SgOd+uTUeolmxAf5BZi3go31FuD84hHYPlEjxm+P0ld8T16kQ22yhMf6IV6gye4wUZ+dRQL5g9qKy7OPEBozksUy4+zjBpVM2vw2NlCtPBvMPFK1vVxPlhg7j2WjooxsOZ8gOdJ0BTLvQ6BWUarCWgy17OIQbyw9HTx+1gwuzdNT4BVRGK+8VpYsZyTmsJaGrQ9oT7SZGYejNa10QokKSkvU7JEZwah1/Pba6QsxMlKakzqS+8DfDMXaRyhlYC8r8jTfPuVJ/qk/z+Rk9/ioZJCJC283WVZ+jizWr6RBHTD4Gv4gKYy0R6FFwI5M3AkYzwgCxbXMwmfALNuEy0N/XIQ1Q2Z8IySIcSp4yFJCY5rytfF7vPJWo7QBGXNUTrqOVS5tLiEetwHSC24a9sDQh/nsuNmv/2XUtVs47SPBZCkEFV4p1Wg6WgQIHAyp0m1b5fRzkjCwnBR62I9YXphE1l4FQUrrtJAdP4gPY3no1Wb/yQ4rWdxwmmfAWdOrMM4tUplC4AYXMH1j1BkoIkSiW4NMEOlxt+UrOz8N6anuSXr3aI3rZExkJa4m3pE8wOxSc03n6uyVdKYTu94/fOlnh0UinEsomtAle16SZi2HLxeVx98bIr2A2R1CMKs3mS9YFMDuIe6ZZLo7ahgAbROohTJsSDQNMQDw0ft6D1nKABQ=
+  - secure: TSeYxHmbUbIGXWhirUtXfaqSIPV/zB1VthUJroRxMFLsaFZEwZDJmK0zzm4Tgu6X0IDFHyP53Hk+j9qqcHXYXvDOrDo4Fz+BWMODxkHCXFZ6dHlfr4XPk+ha4OlA9lmdV8zMp1Jljsc7wlSGacdFdSNgWCRhj9rIeIK/k/Y6+iXTHKTZIU0bzbYjZ8bXwD4GizB1vZ/GEZacb48Ns1KUOC4iN/ftgBm3rJWvuY64bjiUdpy1kEq9rFKZojQk7Hin+BWaNfSxf/19NgZLo0A2/tErIA2ah+TjkL3I4mhGy9znYlZXRjT4mSI1jazXBP/IEkMMI2jlrdXoVcIGv3wWZlFilJABgivmXEzdnfgoM6Mb79GGDqgZCPDrAlqMCpRiA6lENguDfIa2E+rD89maRN2k+991E9dKlUFU1ms+qdzsz8MV7Mz515a7MLgLiSgH2VIhDd2pBGebEL9jYQ8V7XoJ1Mze6gcraFpQB36YC3G6wDD3u+D7BX7MS1xxIz8VSxgofYvHOXdGWS1G9z8aEyMWdqS6JJ7crjMRf5vb2yeexKClHrai+6Ud3jDx4NDp0M/mWWDm97YvzzF9SDn1jp6qeQGZ9xWSa6D1sDzLidD5qGyDEs7pgVKt+oxbEl0j/vZlJXRQuk2fDzyo92F1gnmASsYcm8F11jatrUh5BmY=
+#To update SDK Tools to latest, another update is required
+#- tools #latest, 26.1.1 as of 2018-10-07
+#- platform-tools #latest, 28.0.1 as of 2018-10-07
 language: android
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -f $HOME/.gradle/caches/*/classAnalysis/cache.properties.lock
-  - rm -f $HOME/.gradle/caches/*/jarSnapshots/cache.properties.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/*/classAnalysis/cache.properties.lock
+- rm -f $HOME/.gradle/caches/*/jarSnapshots/cache.properties.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 android:
-    components:
-        - tools #latest for "builtin" sdk tools (25.2.5 in Android-28)
-        #To update SDK Tools to latest, another update is required
-        #- tools #latest, 26.1.1 as of 2018-10-07
-        - platform-tools #latest, 28.0.1 as of 2018-10-07
-        - build-tools-28.0.3
-        - android-28
-        - extra-android-m2repository
-        - extra-google-m2repository
-        - extra-google-google_play_services
-
+  components:
+  - tools
+  - platform-tools
+  - build-tools-$ANDROID_BUILD_TOOLS
+  - android-$ANDROID_API
+  - extra-android-m2repository
+  - extra-google-m2repository
+  - extra-google-google_play_services
 notifications:
   email: false
-
 script:
-    - ./gradlew wear:lintRelease
-    - ./gradlew assembleLatestRelease
-    - ./gradlew lintLatestRelease
-    - ./gradlew assembleFroyoRelease lintFroyoRelease
-    - ./gradlew test
+- ./gradlew assembleLatestRelease
+before_install:
+- openssl aes-256-cbc -K $encrypted_a0871ed46938_key -iv $encrypted_a0871ed46938_iv -in debug.keystore.enc -out $HOME/debug.keystore -d
+before_deploy:
+- cp $TRAVIS_BUILD_DIR/.keystore $HOME
+- cd app/build/outputs/apk/latest/release
+- ${ANDROID_HOME}/build-tools/$ANDROID_BUILD_TOOLS/zipalign -v 4 app-latest-universal-release.apk app-latest-universal-release-aligned.apk
+- apksigner sign --verbose -ks $HOME/debug.keystore --ks-pass env:storepass --key-pass env:keypass app-latest-universal-release-aligned.apk runnerup-latest-universal.apk
+- apksigner -verify runnerup-latest-universal.apk
+deploy:
+  provider: releases
+  file: runnerup-latest-universal.apk
+  skip_cleanup: true
+
+  on:
+    repo: gerhardol/runnerup
+    tags: true
+    jdk: oraclejdk8
+  api_key:
+    secure: "X5X9A0fanuAl8zRhDDegj/xdSRE6u1fWvChd28f/UXj73pB3NnfTf0BAmn8Nk3NrKI9PxLGRbdZfy7YvDcGOsm8PD+7dQkmcLpaS5CN4Lyz46l/1W2soAV0QIQjiS5KaLb01dQ33YF2n+3DW+ySKprcPEMJTj1mpV0n/S05bVdm9XtEPUMbZO/gutpmaq1sxqI/ym6cNbm+x6fXEP/CCkjsseZu+s/N6gFz3xEGdry3Amp/ep4kD5oOlIE5Gs+JuOIa1bRSUVAaW+QV2UUjMhucekgSWzD8oxeAZYOqg5GqocIk1hsEIP+DoLAxPqJIkmT4TczlZe6mqUvw2+DyhzKASd82knz4InCowPjoiE4dB22ZtFZFc4YJJTp1Ztv8YnSFRtNWdZ+B/X6tIbpbiaYjetDTzqV04kf7wTeSKr70oJHfGjvrG+cFX4gcMu4Rt89XOzUGpxCarp+05lYmP3DCNRYuWocb2ZX9JrgOQ0DSqS7HaVwZTBHbHhPGT9CdeorFe4et9yl+kczqF9zYQlCKVJVtX0CkrhUiOykxuZXA1CPzeB13ddgwWiVT3w9A9hEJuWCiBv12yjvN8H8NhF9de/dCiUMnr8+dPPYyQTuSZ+kfHWUXTrWqEb5hGf/Fy1Ae1cGcMK4KWpx4Pnd2ffRNT8TyFFdcD6bVjI6+DdRI="
