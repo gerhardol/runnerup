@@ -23,13 +23,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +54,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HistoryActivity extends AppCompatActivity implements Constants, OnItemClickListener,
-        LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private SQLiteDatabase mDB = null;
     private Formatter formatter = null;

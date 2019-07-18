@@ -17,6 +17,7 @@
 
 package org.runnerup.view;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -25,14 +26,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.SwitchCompat;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.content.ContextCompat;
+import androidx.cursoradapter.widget.CursorAdapter;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,7 +58,7 @@ import org.runnerup.util.SimpleCursorLoader;
 
 
 public class AccountListActivity extends AppCompatActivity implements Constants,
-        LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private SQLiteDatabase mDB = null;
     private SyncManager mSyncManager = null;

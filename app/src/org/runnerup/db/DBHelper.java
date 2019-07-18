@@ -18,7 +18,6 @@
 package org.runnerup.db;
 
 import android.annotation.TargetApi;
-import android.support.v7.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,8 +26,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.runnerup.R;
 import org.runnerup.common.util.Constants;

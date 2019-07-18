@@ -17,7 +17,6 @@
 
 package org.runnerup.view;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -32,7 +31,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -46,8 +44,10 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.runnerup.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.runnerup.BuildConfig;
+import org.runnerup.R;
 import org.runnerup.tracker.Tracker;
 import org.runnerup.tracker.component.TrackerHRM;
 import org.runnerup.util.Formatter;
@@ -323,7 +323,7 @@ public class RunActivity extends AppCompatActivity implements TickListener {
             finish();
             return;
         }
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
             /*
              * they saved
              */
@@ -331,7 +331,7 @@ public class RunActivity extends AppCompatActivity implements TickListener {
             workout.onSave();
             mTracker = null;
             finish();
-        } else if (resultCode == Activity.RESULT_CANCELED) {
+        } else if (resultCode == AppCompatActivity.RESULT_CANCELED) {
             /*
              * they discarded
              */
@@ -339,7 +339,7 @@ public class RunActivity extends AppCompatActivity implements TickListener {
             workout.onDiscard();
             mTracker = null;
             finish();
-        } else if (resultCode == Activity.RESULT_FIRST_USER) {
+        } else if (resultCode == AppCompatActivity.RESULT_FIRST_USER) {
             startTimer();
             if (requestCode == 0) {
                 workout.onResume(workout);

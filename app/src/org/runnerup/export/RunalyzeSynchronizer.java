@@ -24,6 +24,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.runnerup.BuildConfig;
@@ -157,7 +159,7 @@ public class RunalyzeSynchronizer extends DefaultSynchronizer implements OAuth2S
     }
 
     @Override
-    public Intent getAuthIntent(Activity activity) {
+    public Intent getAuthIntent(AppCompatActivity activity) {
         return OAuth2Activity.getIntent(activity, this);
     }
 

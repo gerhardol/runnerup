@@ -33,21 +33,20 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 
-import org.runnerup.BuildConfig;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.runnerup.R;
 import org.runnerup.db.DBHelper;
 import org.runnerup.tracker.component.TrackerCadence;
 import org.runnerup.tracker.component.TrackerPressure;
 import org.runnerup.tracker.component.TrackerTemperature;
-import org.runnerup.util.FileUtil;
-
-import java.io.IOException;
 
 
 public class SettingsActivity extends PreferenceActivity

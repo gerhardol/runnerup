@@ -21,7 +21,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.Gravity;
@@ -31,6 +30,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import org.runnerup.R;
 import org.runnerup.common.util.Constants.DB.DIMENSION;

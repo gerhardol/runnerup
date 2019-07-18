@@ -20,7 +20,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v4.content.LocalBroadcastManager;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.runnerup.common.util.Constants;
 import org.runnerup.tracker.Tracker;
