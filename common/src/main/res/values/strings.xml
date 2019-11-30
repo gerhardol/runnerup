@@ -340,7 +340,7 @@
   <string name="Lap_start_summary">Cue for start of laps and \"Active\", \"Warmup\" and \"Cooldown\" steps</string>
   <string name="Lock_activity_buttons">Lock activity buttons</string>
   <string name="Lock_activity_buttons_message">Lock activity buttons by fast clicking the header</string>
-  <string name="Velocity">Velocity</string>
+  <string name="Speed">Speed</string>
   <string name="setting_default_speedunit" translatable="false">pace</string>
 
 </resources>
