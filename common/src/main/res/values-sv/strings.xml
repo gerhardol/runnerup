@@ -338,4 +338,5 @@
   <string name="Lock_activity_buttons">Lås aktivitetsknappar</string>
   <string name="Lock_activity_buttons_message">Lås aktivitetsknappar genom att knacka snabbt på toppfälten</string>
   <string name="Speed">Hastighet</string>
+  <string name="Speed_unit_preference">Hastighetsenhet</string>
 </resources>
