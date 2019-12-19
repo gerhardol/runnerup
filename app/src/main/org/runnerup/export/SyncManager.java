@@ -92,6 +92,7 @@ public class SyncManager {
     private final LongSparseArray<Synchronizer> synchronizersById = new LongSparseArray<>();
 
     private ProgressDialog mSpinner = null;
+    private AlertDialog mDialog = null;
 
     public enum SyncMode {
         DOWNLOAD(R.string.Downloading_from_1s),
@@ -133,6 +134,14 @@ public class SyncManager {
     public synchronized void close() {
         if (mDB != null) {
             DBHelper.closeDB(mDB);
+        }
+        if(mDialog != null){
+            mDialog.dismiss();
+            mDialog = null;
+        }
+        if(mSpinner != null){
+            mSpinner.dismiss();
+            mSpinner = null;
         }
     }
 
@@ -439,7 +448,8 @@ public class SyncManager {
                         return false;
                     }
                 });
-        builder.show();
+        mDialog = builder.create();
+        mDialog.show();
     }
 
 
@@ -542,9 +552,9 @@ public class SyncManager {
                         return false;
                     }
                 });
-        final AlertDialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        mDialog = builder.create();
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.show();
     }
 
     @SuppressWarnings("UnusedReturnValue")

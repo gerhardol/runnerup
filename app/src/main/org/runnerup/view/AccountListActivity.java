@@ -114,6 +114,13 @@ public class AccountListActivity extends AppCompatActivity implements Constants,
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        DBHelper.closeDB(mDB);
+        mSyncManager.close();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
