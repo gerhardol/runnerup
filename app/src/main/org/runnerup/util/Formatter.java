@@ -141,8 +141,6 @@ public class Formatter implements OnSharedPreferenceChangeListener {
         Resources res = ctx.getResources();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         if (prefs.contains(res.getString(R.string.pref_audio_lang))) {
-            Log.v("Formatter", "Audio language: " +
-                    prefs.getString(res.getString(R.string.pref_audio_lang), null));
             return new Locale(prefs.getString(res.getString(R.string.pref_audio_lang), "en"));
         }
         return null;
@@ -155,7 +153,6 @@ public class Formatter implements OnSharedPreferenceChangeListener {
 
     public String getCueString(int msgId) {
         return cueResources.getString(msgId);
-    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,

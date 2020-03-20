@@ -30,12 +30,12 @@ import org.runnerup.common.util.Constants;
 import org.runnerup.db.PathSimplifier;
 import org.runnerup.export.format.GPX;
 import org.runnerup.export.format.TCX;
+import org.runnerup.util.FileNameHelper;
 import org.runnerup.workout.FileFormats;
 import org.runnerup.workout.Sport;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Locale;
 
 import okhttp3.Authenticator;
 import okhttp3.Credentials;
@@ -203,15 +203,21 @@ public class WebDavSynchronizer extends DefaultSynchronizer {
         }
 
         Sport sport = Sport.RUNNING;
+        long startTime = 0;
+
         try {
 
-            String[] columns = { Constants.DB.ACTIVITY.SPORT };
+            String[] columns = {
+                    Constants.DB.ACTIVITY.SPORT,
+                    Constants.DB.ACTIVITY.START_TIME,
+            };
             Cursor c = null;
             try {
                 c = db.query(Constants.DB.ACTIVITY.TABLE, columns, "_id = " + mID,
                         null, null, null, null);
                 if (c.moveToFirst()) {
                     sport = Sport.valueOf(c.getInt(0));
+                    startTime = c.getLong(1);
                 }
             } finally {
                 if (c != null) {
@@ -219,17 +225,18 @@ public class WebDavSynchronizer extends DefaultSynchronizer {
                 }
             }
 
+            String fileBase = FileNameHelper.getExportFileNameWithModel(startTime, sport.TapiriikType());
             if (mFormat.contains(FileFormats.TCX)) {
                 TCX tcx = new TCX(db, simplifier);
                 StringWriter writer = new StringWriter();
                 tcx.export(mID, writer);
-                s = uploadFile(db, mID, sport, writer, FileFormats.TCX.getValue());
+                s = uploadFile(writer, fileBase, FileFormats.TCX.getValue());
             }
             if (s == Status.OK && mFormat.contains(FileFormats.GPX)) {
                 GPX gpx = new GPX(db, true, true, simplifier);
                 StringWriter writer = new StringWriter();
                 gpx.export(mID, writer);
-                s = uploadFile(db, mID, sport, writer, FileFormats.GPX.getValue());
+                s = uploadFile(writer, fileBase, FileFormats.GPX.getValue());
             }
 
         } catch (Exception e) {
@@ -240,17 +247,12 @@ public class WebDavSynchronizer extends DefaultSynchronizer {
         return s;
     }
 
-    private Status uploadFile(SQLiteDatabase db, long mID, Sport sport, StringWriter writer, String fileExt) {
-
-        String file = String.format(Locale.getDefault(), "/RunnerUp_%s_%04d_%s.%s",
-                android.os.Build.MODEL.replaceAll("\\s","_"), mID, sport.TapiriikType(),
-                fileExt);
-
+    private Status uploadFile(StringWriter writer, String fileBase, String fileExt) {
         Status s = Status.ERROR;
         try{
             OkHttpClient client = getAuthClient();
-            RequestBody body = RequestBody.create(MediaType.parse("application/"+fileExt+"+xml"),writer.toString());
-            Request request = new Request.Builder().url(url +file).method("PUT", body).build();
+            RequestBody body = RequestBody.create(MediaType.parse("application/" + fileExt + "+xml"), writer.toString());
+            Request request = new Request.Builder().url(url + fileBase + fileExt).method("PUT", body).build();
 
             Response response = client.newCall(request).execute();
             int responseCode = response.code();
