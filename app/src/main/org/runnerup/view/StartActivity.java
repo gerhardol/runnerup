@@ -602,6 +602,7 @@ public class StartActivity extends AppCompatActivity
 
     private final OnClickListener startButtonClick = new OnClickListener() {
         public void onClick(View v) {
+            //MainLayout.requestGpsPermissions(StartActivity.this, tabHost.getCurrentView());
             if (mTracker.getState() == TrackerState.CONNECTED) {
                 mGpsStatus.stop(StartActivity.this);
 

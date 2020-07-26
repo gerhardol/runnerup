@@ -17,85 +17,38 @@
 
 package org.runnerup.view;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 
 import org.runnerup.R;
-import org.runnerup.db.DBHelper;
-import org.runnerup.tracker.component.TrackerCadence;
-import org.runnerup.tracker.component.TrackerPressure;
-import org.runnerup.tracker.component.TrackerTemperature;
+import org.runnerup.view.fragments.PrefsFragment;
 
-
-public class SettingsActivity extends PreferenceActivity {
-
-    public void onCreate(Bundle savedInstanceState) {
-        Resources res = getResources();
+public class SettingsActivity extends AppCompatActivity
+implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback{
+/*    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.settings);
-        setContentView(R.layout.settings_wrapper);
-        {
-            Preference btn = findPreference(res.getString(R.string.pref_exportdb));
-            btn.setOnPreferenceClickListener(onExportClick);
-        }
-        {
-            Preference btn = findPreference(res.getString(R.string.pref_importdb));
-            btn.setOnPreferenceClickListener(onImportClick);
-        }
-        {
-            Preference btn = findPreference(res.getString(R.string.pref_prunedb));
-            btn.setOnPreferenceClickListener(onPruneClick);
-        }
-
-
-        if (!hasHR(this)) {
-            getPreferenceManager().findPreference(res.getString(R.string.cue_configure_hrzones)).setEnabled(false);
-            getPreferenceManager().findPreference(res.getString(R.string.pref_battery_level_low_threshold)).setEnabled(false);
-            getPreferenceManager().findPreference(res.getString(R.string.pref_battery_level_high_threshold)).setEnabled(false);
-        }
-        {
-            //Preference pref = findPreference(this.getString(R.string.pref_experimental_features));
-            //pref.setSummary(null);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Preference pref = findPreference(this.getString(R.string.pref_keystartstop_active));
-            pref.setEnabled(false);
-        }
-        if (!TrackerCadence.isAvailable(this)) {
-            Preference pref = findPreference(this.getString(R.string.pref_use_cadence_step_sensor));
-            pref.setEnabled(false);
-        }
-        if (!TrackerTemperature.isAvailable(this)) {
-            Preference pref = findPreference(this.getString(R.string.pref_use_temperature_sensor));
-            pref.setEnabled(false);
-        }
-        if (!TrackerPressure.isAvailable(this)) {
-            Preference pref = findPreference(this.getString(R.string.pref_use_pressure_sensor));
-            pref.setEnabled(false);
-        }
-        CheckBoxPreference simplifyOnSave = (CheckBoxPreference) findPreference(getString(R.string.pref_path_simplification_on_save));
-        CheckBoxPreference simplifyOnExport = (CheckBoxPreference) findPreference(getString(R.string.pref_path_simplification_on_export));
-        if (simplifyOnSave.isChecked()) {
-            simplifyOnExport.setChecked(true);
-        }
-        simplifyOnSave.setOnPreferenceChangeListener((preference, newValue) -> {
-            if ((Boolean) newValue) {
-                simplifyOnExport.setChecked(true);
-            }
-            return true;
-        });
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.settings_container, new PrefsFragment())
+                .commit();
     }
+*/
+@Override
+public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
+    PreferenceFragmentCompat fragment = new PrefsFragment();
+            Bundle args = new Bundle();
+    args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, preferenceScreen.getKey());
+    fragment.setArguments(args);
+    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ft.replace(R.id.content, fragment, preferenceScreen.getKey());
+    ft.addToBackStack(preferenceScreen.getKey());
+    ft.commit();
 
+    return true;
+}
     public static boolean hasHR(Context ctx) {
         Resources res = ctx.getResources();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -103,24 +56,4 @@ public class SettingsActivity extends PreferenceActivity {
         String btProviderName = prefs.getString(res.getString(R.string.pref_bt_provider), null);
         return btProviderName != null && btAddress != null;
     }
-
-    private final OnPreferenceClickListener onExportClick = preference -> {
-        // TODO Use picker with ACTION_CREATE_DOCUMENT
-        DBHelper.exportDatabase(SettingsActivity.this, null);
-        return false;
-    };
-
-    private final OnPreferenceClickListener onImportClick = preference -> {
-        // TODO Use picker with ACTION_OPEN_DOCUMENT
-        DBHelper.importDatabase(SettingsActivity.this, null);
-        return false;
-    };
-
-    private final OnPreferenceClickListener onPruneClick = preference -> {
-        final ProgressDialog dialog = new ProgressDialog(SettingsActivity.this);
-        dialog.setTitle(R.string.Pruning_deleted_activities_from_database);
-        dialog.show();
-        DBHelper.purgeDeletedActivities(SettingsActivity.this, dialog, dialog::dismiss);
-        return false;
-    };
 }
