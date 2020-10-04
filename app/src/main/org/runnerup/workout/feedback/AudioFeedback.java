@@ -18,6 +18,9 @@
 package org.runnerup.workout.feedback;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.widget.Toast;
 
@@ -43,6 +46,7 @@ public class AudioFeedback extends Feedback {
     private Intensity intensity;
     RUTextToSpeech textToSpeech;
     Formatter formatter;
+    Vibrator mVibrator;
 
     public AudioFeedback(int msgId) {
         super();
@@ -116,10 +120,26 @@ public class AudioFeedback extends Feedback {
     @Override
     public void emit(Workout w, Context ctx) {
         String msg = getCue(w, ctx);
-        if (msg != null && textToSpeech != null) {
-            if (BuildConfig.DEBUG) {
-                Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+        if (msg == null) {
+            return;
+        }
+        if (BuildConfig.DEBUG) {
+            Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
+        }
+        if (mVibrator == null) {
+            // TBD Workout.KEY_VIBRATOR
+            mVibrator = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        if (mVibrator != null && mVibrator.hasVibrator()) {
+            // Vibrate for 500 milliseconds
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                mVibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                //deprecated in API 26
+                mVibrator.vibrate(500);
             }
+        }
+        if (textToSpeech != null) {
             textToSpeech.speak(msg, TextToSpeech.QUEUE_ADD, null);
         }
     }
