@@ -58,11 +58,9 @@
   <string name="Total">Total</string>
   <string name="Interval">Intervalle</string>
   <string name="Lap">Tour</string>
-  <string name="New_lap">Nouveau tour</string>
   <string name="Pause">Pause</string>
   <string name="Stop">Stop</string>
   <string name="Workout">Entraînement</string>
-  <string name="Download_workouts">Télécharger les entraînements</string>
   <string name="Audio_cue_settings">Paramètrage du suivi audio</string>
   <string name="Sport">Sport</string>
   <string name="Target">Cible</string>
@@ -95,8 +93,7 @@
   <string name="Low_pace">Rythme min.</string>
   <string name="High_pace">Rythme max.</string>
   <string name="Sex">Sexe</string>
-  <string name="upload">envoyer</string>
-  <string name="feed">Actualités</string>
+  <string name="upload">Uploadé</string>
   <string name="Notes">Notes</string>
   <string name="Laps">Tours</string>
   <string name="Map">Carte</string>
@@ -104,17 +101,13 @@
   <string name="Upload">Envoyer</string>
   <string name="Disconnect">Déconnecter</string>
   <string name="Resume">Reprendre</string>
-  <string name="Save_activity">Sauvegarder la séance</string>
-  <string name="Upload_activity">Envoyer la séance</string>
   <string name="Uploaded">Envoyé</string>
   <string name="Finished">Terminé</string>
   <string name="Until_press">Jusqu\'à pression</string>
-  <string name="Discard_activity">Abandonner la séance</string>
   <string name="Configure_accounts">Configurer les comptes</string>
   <string name="Refresh">Rafraichir</string>
   <string name="Age">Age</string>
   <string name="Synchronizing">Synchronisation en cours</string>
-  <string name="synchronizing_feed">Synchronisation des actualités...</string>
   <string name="OK">OK</string>
   <string name="accounts_category_connected">Gérer les connexions</string>
   <string name="accounts_category_unconnected">Connecter un compte</string>
@@ -154,8 +147,6 @@
   <string name="Cancellingplease_wait">Annulation, veuillez patienter...</string>
   <string name="Are_you_sure">Êtes-vous sûr ?</string>
   <string name="Configure_audio_cues">Configurer le suivi audio</string>
-  <string name="Downloadeditremove_workouts">Télécharger / éditer / supprimer les entraînements</string>
-  <string name="Note_you_need_to_connect_to_the_account_too">Vous devez vous connecter à un compte RunnerUp Live</string>
   <string name="Use_your_headset_to_startpauseresume_RunnerUp">Utilisez le casque pour démarrer/pauser/reprendre RunnerUp</string>
   <string name="Convert_reststep_with_type_distance_to_recoverystep_for_Intervaltab">Dans l\'onglet Intervalle, utilisez des étapes de Récupération plutôt que de Repos (pause)</string>
   <string name="Convert_reststep_with_type_distance_to_recoverystep_for_Advancedtab">Utiliser des étapes Récupération plutôt que Repos (pause) pour les étapes de compte à rebours insérées</string>
@@ -172,7 +163,6 @@
   <string name="Autolap_m">Tour automatique (m)</string>
   <string name="Autopause">Pause automatique</string>
   <string name="Autopause_summary">Pause automatique dans les entraînements de base et les étapes Échauffement et Récupération</string>
-  <string name="Enable_RunnerUpLive">Activer Live</string>
   <string name="Headset_key_startstop">Touche de casque début/fin</string>
   <string name="Activity_countdown">Compte à rebours avant démarrage</string>
   <string name="Activity_countdown_summary">Ajouter un compte à rebours au démarrage d\'un entraînement de base</string>
@@ -276,7 +266,6 @@
   <string name="Website">Site web</string>
   <string name="Automatic_upload">Télécharger automatiquement</string>
   <string name="Live">Actualités</string>
-  <string name="Include_map_in_post">Inclure la carte dans la publication</string>
   <string name="Clear_uploads_from_phone">Supprimer les uploads (du téléphone)</string>
   <string name="my_phone">Mon téléphone</string>
   <string name="Failed_to_import">L\'importation a échoué</string>
@@ -285,15 +274,12 @@
   <string name="Overwrite_existing">Écraser existant</string>
   <string name="Create_new_workout">Créer un nouvel entraînement</string>
   <string name="Set_workout_name">Nom de l\'entraînement</string>
-  <string name="Downloading_1s_will_overwrite_2_workout_with_same_name">Le téléchargement de %1$s va écraser l\'entraînement du même nom %2$s</string>
   <string name="Delete_workout">Supprimer l\'entraînement</string>
   <string name="RunnerUp_workout">Entraînement RunnerUp</string>
   <string name="HinHere_is_a_workout_I_think_you_might_like">Bonjour\nVoici un entraînement que vous pourriez aimer.</string>
   <string name="Share_workout">Partager l\'entraînement</string>
   <string name="New_audio_scheme">Nouveau profile de suivi audio</string>
-  <string name="GPS_permission_required">Permission GPS requise</string>
   <string name="GPS_permission_text_pre_Android10">L\'autorisation de Localisation est requise dans les paramètres système.</string>
-  <string name="GPS_permission_text">L\'autorisation de Localisation \"Toujours autoriser\" est requise dans les paramètres système.\nPour la cadence de course, l\'autorisation \"Activité physique\" est aussi requise.</string>
   <string name="Request_permission_text">Donnez l\'autorisation en cliquant sur \"OK\".</string>
   <string name="Battery_optimization_check">Optimisation de la batterie activée.</string>
   <string name="Battery_optimization_check_text">L\'optimisation de la batterie va diminuer la précision.\nAppuyez sur OK pour aller dans les Paramètres système et sélectionnez \"Toutes les applis\", cherchez \"RunnerUp\" sélectionnez \"Ne pas optimiser\".</string>
@@ -303,7 +289,6 @@
   <string name="Uploading_to_1s">Envoi à %1$s</string>
   <string name="Loading_activities">Chargement des séances</string>
   <string name="Fetching_activities_from_1s">Récupération des séances depuis %1$s</string>
-  <string name="No_feed_to_show">Aucun flux à afficher</string>
   <string name="Unused_currently">Inutilisé actuellement.</string>
   <string name="Unknown">Inconnu</string>
   <string name="Recording">Enregistrement</string>
@@ -313,7 +298,6 @@
   <string name="cue_hrm_connection_lost">Connexion au moniteur de fréquence cardiaque perdue</string>
   <string name="HRM_connection_audio_cue">Suivi audio de connexion au cardiofréquencemètre</string>
   <string name="Audio_cue_unit">Inclure l\'unité dans le suivi audio</string>
-  <string name="latest_feed_click_to_refresh">Dernier flux (cliquez pour rafraîchir)</string>
   <string name="log_extended_gps_summary">Exporter en GPX uniquement</string>
   <string name="log_extended_gps_title">Enregistrer les données GPS complètes</string>
   <string name="Current_speed_from_GPS_points">Vitesse actuelle à partir des points GPS</string>
@@ -328,7 +312,6 @@
   <string name="Lap_start">Début du tour</string>
   <string name="Lap_start_summary">Suivi audio pour démarrage d\'étapes Actives, Échauffement et Récupération</string>
   <string name="Lock_activity_buttons">Verrouiller les boutons d\'activité</string>
-  <string name="Lock_activity_buttons_message">Verrouiller les boutons d\'activité en cliquant rapidement sur l\'entête</string>
   <string name="Speed">Vitesse</string>
   <string name="Speed_unit_preference">Unité de vitesse</string>
   <string name="path_simplification">Simplification des traces GPS</string>
@@ -343,4 +326,8 @@
   <string name="File_need_one_format">Vous devez spécifier au moins un format</string>
   <string name="tts_not_available_title">La synthèse vocale n\'est pas disponible.</string>
   <string name="tts_not_available">RunnerUp nécessite un moteur de synthèse vocale fonctionnel pour le suivi audio. Assurez-vous d\'avoir installé au moins un moteur de synthèse vocale fonctionnel.</string>
+  <!--Preference categories & summaries-->
+  <string name="HRM_category">Fréquence Cardiaque</string>
+  <string name="Autopause_category">Pause automatique</string>
+  <string name="Target_category">Objectif d\'entraînement</string>
 </resources>
