@@ -72,7 +72,7 @@ public class RunKeeperSynchronizer extends DefaultSynchronizer implements Synchr
 
     public static final String NAME = "RunKeeper";
     private static final String PUBLIC_URL = "https://runkeeper.com";
-    private Context context;
+    private final Context context;
     /**
      * @todo register OAuth2Server
      */
@@ -89,7 +89,7 @@ public class RunKeeperSynchronizer extends DefaultSynchronizer implements Synchr
     private String access_token = null;
     private String fitnessActivitiesUrl = null;
     private String userName = null;
-    private PathSimplifier simplifier;
+    private final PathSimplifier simplifier;
 
     public static final Map<String, Sport> runkeeper2sportMap = new HashMap<>();
     public static final Map<Sport, String> sport2runkeeperMap = new HashMap<>();

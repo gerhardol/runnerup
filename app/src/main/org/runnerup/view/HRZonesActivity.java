@@ -98,7 +98,7 @@ public class HRZonesActivity extends AppCompatActivity implements Constants {
         }
 
         lo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            int loZone = zone - 1; /* base 0 offset */
+            final int loZone = zone - 1; /* base 0 offset */
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

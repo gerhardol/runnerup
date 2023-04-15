@@ -693,11 +693,7 @@ public class DetailActivity extends AppCompatActivity implements Constants {
                 viewHolder.cb.setText(R.string.Uploaded);
                 viewHolder.cb.setOnLongClickListener(clearUploadClick);
             } else {
-                if (pendingSynchronizers.contains(name)) {
-                    viewHolder.cb.setChecked(true);
-                } else {
-                    viewHolder.cb.setChecked(false);
-                }
+                viewHolder.cb.setChecked(pendingSynchronizers.contains(name));
                 viewHolder.cb.setText(R.string.Upload);
                 viewHolder.cb.setOnLongClickListener(null);
             }
