@@ -154,7 +154,7 @@ dependencies {
     implementation "androidx.annotation:annotation:${rootProject.ext.annotation_version}"
     implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompat_version}"
 
-    latestImplementation "com.google.android.material:material:1.9.0"
+    latestImplementation "com.google.android.material:material:1.11.0"
     if (rootProject.ext.enableWear) {
         // Build Wear separately, do not include in phone apk
         // latestWearApp project(':wear')
