@@ -300,6 +300,7 @@ public class RunActivity extends AppCompatActivity implements TickListener {
         //if (!ignore_back) {
         //    stopButtonClick.onClick(stopButton);
         //}
+        super.onBackPressed();
     }
 
     @Override

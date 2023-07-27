@@ -59,6 +59,7 @@
     <application
         android:allowBackup="true"
         android:appCategory="maps"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

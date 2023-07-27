@@ -100,6 +100,7 @@ public class HistoryActivity extends AppCompatActivity implements Constants, OnI
     }
 
     public void onBackPressed() {
+        super.onBackPressed();
         Intent intent = new Intent(this, MainLayout.class);
         startActivity(intent);
         finish();
