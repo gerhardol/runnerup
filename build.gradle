@@ -20,7 +20,7 @@ project.ext {
     targetSdk = 35
     minSdk = 21
 
-    appcompat_version = "1.7.0"
+    appcompat_version = "1.7.1"
     annotation_version = "1.6.0"
     preference_version = "1.2.1"
     googlePlayServicesVersion = '21.3.0'

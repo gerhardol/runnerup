@@ -164,7 +164,6 @@ dependencies {
         // Build Wear separately, do not include in phone apk
         // latestWearApp project(':wear')
 
-        //noinspection GradleDependency
         latestImplementation "com.google.android.gms:play-services-wearable:${rootProject.ext.googlePlayServicesWearableVersion}"
     }
 
