@@ -373,4 +373,7 @@
   <string name="SPORT_TREADMILL">Treadmill</string>
   <string name="SPORT_GYM">Gym</string>
   <string name="SPORT_STATIONARY_BIKE">Stationary bike</string>
+
+  <string name="import_cancelled">Import cancelled</string>
+  <string name="export_cancelled">Export cancelled</string>
 </resources>
