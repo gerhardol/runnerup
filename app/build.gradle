@@ -224,7 +224,7 @@ android.applicationVariants.configureEach {
         // https://www.mapbox.com/account/
         props.load(new FileInputStream(rootProject.file("mapbox.properties")))
         buildConfigField 'int', 'MAPBOX_ENABLED', "1"
-        buildConfigField 'String', 'MAPBOX_ACCESS_TOKEN', props.mapboxAccessToken
+        buildConfigField 'String', 'MAPBOX_ACCESS_TOKEN', "\"${props.mapboxAccessToken}\""
 
         buildConfigField 'boolean', 'USING_OSMDROID', "false"
     } else {

@@ -1,10 +1,16 @@
 name: Android CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+      - test/**
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 env:
-  ANDROID_API: 35
-  ANDROID_BUILD_TOOLS: 36.0.0
+  ANDROID_API: 36.1
+  ANDROID_BUILD_TOOLS: 36.1.0
   ADB_INSTALL_TIMEOUT: 5
 
 jobs:
@@ -12,17 +18,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Set up JDK 8
+
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '8'
+          java-version: '17'
           cache: 'gradle'
-      
+
+      - name: Restore cache for Git LFS Objects
+        id: lfs-cache
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: ${{ runner.os }}-lfs-${{ hashFiles('.git/lfs/objects/**') }}
+          restore-keys: ${{ runner.os }}-lfs-
+
+      - name: Git LFS Pull
+        run: git lfs pull
+ 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-      
+
       - name: Install Android SDK components
         run: |
           sdkmanager "tools"
@@ -31,18 +48,18 @@ jobs:
           sdkmanager "extras;android;m2repository"
           sdkmanager "extras;google;m2repository"
           sdkmanager "extras;google;google_play_services"
-      
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-      
-      - name: Lint release
-        run: ./gradlew wear:lintRelease
-      
-      - name: Lint latest release
-        run: ./gradlew app:lintLatestRelease
-      
-      - name: Assemble latest release
-        run: ./gradlew app:assembleLatestRelease
-      
+          
+
+      - name: Prepare builddir
+        run: |
+          echo "${{ secrets.MAPBOX }}" > $GITHUB_WORKSPACE/mapbox.properties
+          chmod +x gradlew
+
+      - name: Build bundle
+        run: ./gradlew app:bundleLatestRelease wear:bundleRelease
+
       - name: Test
-        run: ./gradlew app:test
+        run: ./gradlew testBuildTypesUnitTest :app:testLatestDebugUnitTest testDebugUnitTest
+
+      - name: Lint latest release
+        run: ./gradlew app:lintLatestRelease wear:lintRelease hrdevice:lintRelease common:lintRelease
