@@ -17,7 +17,6 @@
 
 package org.runnerup.view;
 
-import static org.runnerup.BuildConfig.USING_OSMDROID;
 import static org.runnerup.content.ActivityProvider.GPX_MIME;
 import static org.runnerup.content.ActivityProvider.TCX_MIME;
 
@@ -136,7 +135,7 @@ public class DetailActivity extends AppCompatActivity implements Constants {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (USING_OSMDROID || BuildConfig.MAPBOX_ENABLED > 0) {
+    if (BuildConfig.OSMDROID_ENABLED || BuildConfig.MAPBOX_ENABLED) {
       // MapBox or Osmdroid, set mapWrapper.
       MapWrapper.start(this);
     }
@@ -210,7 +209,7 @@ public class DetailActivity extends AppCompatActivity implements Constants {
       });
     notes = findViewById(R.id.notes_text);
 
-    if (USING_OSMDROID || BuildConfig.MAPBOX_ENABLED > 0) {
+    if (BuildConfig.OSMDROID_ENABLED || BuildConfig.MAPBOX_ENABLED) {
       Object mapView = findViewById(R.id.mapview);
       mapWrapper = new MapWrapper(this, mDB, mID, formatter, mapView);
       mapWrapper.onCreate(savedInstanceState);
@@ -235,7 +234,7 @@ public class DetailActivity extends AppCompatActivity implements Constants {
     tabSpec.setContent(R.id.tab_lap);
     th.addTab(tabSpec);
 
-    if (USING_OSMDROID || BuildConfig.MAPBOX_ENABLED > 0) {
+    if (BuildConfig.OSMDROID_ENABLED || BuildConfig.MAPBOX_ENABLED) {
       tabSpec = th.newTabSpec("map");
       tabSpec.setIndicator(
           WidgetUtil.createHoloTabIndicator(this, getString(org.runnerup.common.R.string.Map)));
@@ -317,8 +316,9 @@ public class DetailActivity extends AppCompatActivity implements Constants {
     LinearLayout graphTabLayout = findViewById(R.id.tab_graph);
     LinearLayout hrzonesBarLayout = findViewById(R.id.hrzonesBarLayout);
     boolean use_distance_as_x = !Sport.isWithoutGps(sport.getValueInt());
-    graphWrapper = new GraphWrapper(this, graphTabLayout, hrzonesBarLayout,
-                                    formatter, mDB, mID, use_distance_as_x);
+    // variable not needed
+    new GraphWrapper(this, graphTabLayout, hrzonesBarLayout,
+                     formatter, mDB, mID, use_distance_as_x);
 
     if (this.mode == MODE_SAVE) {
       resumeButton.setOnClickListener(resumeButtonClick);
@@ -755,8 +755,7 @@ public class DetailActivity extends AppCompatActivity implements Constants {
               : 0;
       if (hr > 0) {
         viewHolder.tvHr.setVisibility(View.VISIBLE);
-        // Use CUE_LONG instead of TXT_LONG to include unit
-        viewHolder.tvHr.setText(formatter.formatHeartRate(Formatter.Format.CUE_LONG, hr));
+        viewHolder.tvHr.setText(formatter.formatHeartRate(Formatter.Format.TXT_LONG, hr));
       } else if (lapHrPresent) {
         viewHolder.tvHr.setVisibility(View.INVISIBLE);
       } else {

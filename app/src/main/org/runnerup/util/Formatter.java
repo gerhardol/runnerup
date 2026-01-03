@@ -198,7 +198,7 @@ public class Formatter implements OnSharedPreferenceChangeListener {
 
   private static boolean guessDefaultUnit(Resources res, Editor editor) {
     String countryCode = Locale.getDefault().getCountry();
-    Log.e("Formatter", "guessDefaultUnit: countryCode: " + countryCode);
+    Log.i("Formatter", "guessDefaultUnit: countryCode: " + countryCode);
     if (countryCode.equals("")) return true; // km;
     String key = res.getString(R.string.pref_unit);
     if ("US".contentEquals(countryCode) || "GB".contentEquals(countryCode)) {
@@ -400,8 +400,9 @@ public class Formatter implements OnSharedPreferenceChangeListener {
         }
       case TXT:
       case TXT_SHORT:
-      case TXT_LONG:
         return Integer.toString(val2);
+      case TXT_LONG:
+        return cueResources.getQuantityString(R.plurals.cue_bpm, val2, val2);
     }
     return "";
   }
@@ -426,8 +427,9 @@ public class Formatter implements OnSharedPreferenceChangeListener {
         }
       case TXT:
       case TXT_SHORT:
-      case TXT_LONG:
         return Integer.toString(val2);
+      case TXT_LONG:
+        return cueResources.getQuantityString(R.plurals.cue_rpm, val2, val2);
     }
     return "";
   }
