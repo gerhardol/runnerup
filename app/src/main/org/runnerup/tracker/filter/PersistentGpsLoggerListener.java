@@ -20,7 +20,9 @@ package org.runnerup.tracker.filter;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
+import androidx.core.location.LocationCompat;
 import org.runnerup.common.util.Constants;
+import org.runnerup.db.DBHelper;
 import org.runnerup.tracker.LocationListenerBase;
 
 public class PersistentGpsLoggerListener extends LocationListenerBase implements Constants {
@@ -91,8 +93,8 @@ public class PersistentGpsLoggerListener extends LocationListenerBase implements
       values.put(DB.LOCATION.ALTITUDE, eleValue);
     }
     // Used by Google Fit, so logged by default
-    if (arg0.hasAccuracy()) {
-      values.put(DB.LOCATION.ACCURANCY, arg0.getAccuracy());
+    if (LocationCompat.hasMslAltitudeAccuracy(arg0)) {
+      values.put(DB.LOCATION.ACCURANCY, LocationCompat.getMslAltitudeAccuracyMeters(arg0));
     }
 
     if (this.mLogGpxAccuracy) {
@@ -104,14 +106,14 @@ public class PersistentGpsLoggerListener extends LocationListenerBase implements
       if (arg0.hasSpeed()) {
         values.put(DB.LOCATION.SPEED, arg0.getSpeed());
       }
-      if (arg0.hasBearing()) {
-        values.put(DB.LOCATION.BEARING, arg0.getBearing());
+      if (LocationCompat.hasMslAltitude(arg0)) {
+        values.put(DB.LOCATION.BEARING, LocationCompat.getMslAltitudeMeters(arg0));
       }
       // Most GPS chips also includes no of sats
       if (arg0.getExtras() != null) {
-        int sats = arg0.getExtras().getInt("satellites", -1);
-        if (sats >= 0) {
-          values.put(DB.LOCATION.SATELLITES, sats);
+        int satellites = arg0.getExtras().getInt("satellites", -1);
+        if (satellites >= 0) {
+          values.put(DB.LOCATION.SATELLITES, satellites);
         }
       }
       // Not accuracy related but unused by exporters
@@ -135,7 +137,9 @@ public class PersistentGpsLoggerListener extends LocationListenerBase implements
       values.put(DB.LOCATION.TEMPERATURE, temperatureValue);
     }
     if (mDB != null) {
-      mDB.insert(mTable, null, values);
+        DBHelper.getDatabaseWriteExecutor().execute(() -> {
+            mDB.insert(mTable, null, values);
+        });
     }
   }
 }
