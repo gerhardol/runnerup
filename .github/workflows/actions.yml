@@ -79,7 +79,7 @@ jobs:
             **/build/outputs/logs/
 
       - name: Test
-        run: ./gradlew testBuildTypesUnitTest :app:testLatestDebugUnitTest testDebugUnitTest
+        run: ./gradlew test
 
       - name: Upload test logs
         if: always()
