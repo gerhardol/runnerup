@@ -202,7 +202,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
 
     ClassicSpinner sportSpinner = view.findViewById(R.id.sport_spinner);
     ArrayAdapter<CharSequence> adapter =
-        new ArrayAdapter<CharSequence>(
+        new ArrayAdapter<>(
             context, R.layout.actionbar_spinner, Sport.getStringArray(getResources()));
     adapter.setDropDownViewResource(R.layout.actionbar_dropdown_spinner);
     sportSpinner.setAdapter(adapter);
@@ -462,7 +462,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
       if (mTracker != null
           && ((mTracker.getState() == TrackerState.INITIALIZED)
               || (mTracker.getState() == TrackerState.INITIALIZING))) {
-        Log.e(getClass().getName(), "mTracker.reset()");
+        Log.i(getClass().getName(), "mTracker.reset()");
         mTracker.reset();
       }
     }
@@ -508,7 +508,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
 
   private void registerStartEventListener() {
     IntentFilter intentFilter = new IntentFilter();
-    // START_WORKOUT is used by Wear/Pebble when GPS is captured
+    // START_WORKOUT is used by Wear when GPS is captured
     // START_ACTIVITY should also start GPS if not done
     intentFilter.addAction(Constants.Intents.START_ACTIVITY);
     intentFilter.addAction(Constants.Intents.START_WORKOUT);
@@ -533,7 +533,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
     if (!missingEssentialPermission && getAutoStartGps()) {
       startGps();
     } else {
-      Log.e(getClass().getName(), "onGpsTrackerBound state: " + mTracker.getState());
+      Log.d(getClass().getName(), "onGpsTrackerBound state: " + mTracker.getState());
       switch (mTracker.getState()) {
         case INIT:
         case CLEANUP:
@@ -561,7 +561,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
   }
 
   private void startGps() {
-    Log.v(getClass().getName(), "StartFragment.startGps()");
+    Log.d(getClass().getName(), "StartFragment.startGps()");
     if (!sportWithoutGps) {
       if (!mGpsStatus.isEnabled()) {
         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -580,7 +580,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
   }
 
   public void stopGps() {
-    Log.e(getClass().getName(), "StartFragment.stopGps() skipStop: " + this.runActivityPending);
+    Log.d(getClass().getName(), "StartFragment.stopGps() skipStop: " + this.runActivityPending);
     if (runActivityPending) {
       return;
     }
@@ -810,7 +810,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
       final String[] permissions = new String[requestPerms.size()];
       requestPerms.toArray(permissions);
 
-      if (popup && missingEssentialPermission || requestPerms.size() > 0) {
+      if (popup && missingEssentialPermission || !requestPerms.isEmpty()) {
         // Essential or requestable permissions missing
         String baseMessage =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
@@ -824,7 +824,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
                 .setTitle(org.runnerup.common.R.string.GPS_permission_required)
                 .setNegativeButton(
                     org.runnerup.common.R.string.Cancel, (dialog, which) -> dialog.dismiss());
-        if (requestPerms.size() > 0) {
+        if (!requestPerms.isEmpty()) {
           // Let Android request the permissions
           builder
               .setPositiveButton(
@@ -1045,7 +1045,7 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
     // gps details
     String gpsAccuracy = getGpsAccuracyString(accuracy);
     String gpsDetail =
-        gpsAccuracy.length() == 0
+        gpsAccuracy.isEmpty()
             ? String.format(
                 getString(org.runnerup.common.R.string.GPS_status_no_accuracy),
                 satFixedCount,
@@ -1280,12 +1280,12 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
 
     if (data != null) {
       if (data.getStringExtra("url") != null)
-        Log.e(
+        Log.d(
             getClass().getName(), "data.getStringExtra(\"url\") => " + data.getStringExtra("url"));
       if (data.getStringExtra("ex") != null)
-        Log.e(getClass().getName(), "data.getStringExtra(\"ex\") => " + data.getStringExtra("ex"));
+        Log.d(getClass().getName(), "data.getStringExtra(\"ex\") => " + data.getStringExtra("ex"));
       if (data.getStringExtra("obj") != null)
-        Log.e(
+        Log.d(
             getClass().getName(), "data.getStringExtra(\"obj\") => " + data.getStringExtra("obj"));
     }
     if (requestCode == START_ACTIVITY) {
@@ -1425,10 +1425,10 @@ public class StartFragment extends Fragment implements TickListener, GpsInformat
           (convertView instanceof StepButton)
               ? (StepButton) convertView
               : new StepButton(requireContext(), null);
-      button.setStep(entry.step);
+      button.setStep(entry.step());
 
       float pxToDp = getResources().getDisplayMetrics().density;
-      button.setPadding((int) (entry.level * 8 * pxToDp + 0.5f), 0, 0, 0);
+      button.setPadding((int) (entry.level() * 8 * pxToDp + 0.5f), 0, 0, 0);
       button.setOnChangedListener(onWorkoutChanged);
       return button;
     }
