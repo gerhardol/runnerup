@@ -2,6 +2,7 @@
 <resources>
     <dimen name="margin_for_fab">88dp</dimen>
     <dimen name="activity_margin">16dp</dimen>
+    <dimen name="hr_settings_chart_height">112dp</dimen>
 
     <dimen name="fab_margin_44row">20dp</dimen>
     <dimen name="fab_margin_68row">44dp</dimen>
