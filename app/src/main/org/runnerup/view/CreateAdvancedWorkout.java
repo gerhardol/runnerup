@@ -114,19 +114,19 @@ public class CreateAdvancedWorkout extends AppCompatActivity {
     ViewUtil.Insets(findViewById(R.id.create_advanced_workout_view), true);
   }
 
-    private void persistCurrentWorkoutName() {
-        if (advancedWorkoutSpinner == null) {
-            return;
-        }
-        try {
-            String curName = advancedWorkoutSpinner.getValue().toString();
-            SharedPreferences prefs =
-                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            prefs.edit().putString(getString(R.string.pref_advanced_workout), curName).apply();
-        } catch (Exception ignored) {
-            // If the spinner value can't be read, fall back to the default back behaviour.
-        }
+  private void persistCurrentWorkoutName() {
+    if (advancedWorkoutSpinner == null) {
+      return;
     }
+    try {
+      String curName = advancedWorkoutSpinner.getValue().toString();
+      SharedPreferences prefs =
+          PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+      prefs.edit().putString(getString(R.string.pref_advanced_workout), curName).apply();
+    } catch (Exception ignored) {
+      // If the spinner value can't be read, fall back to the default back behaviour.
+    }
+  }
 
   private void createAdvancedWorkout(String name, boolean workoutEditMode)
       throws JSONException, IOException {
@@ -396,14 +396,14 @@ public class CreateAdvancedWorkout extends AppCompatActivity {
                         getApplicationContext(), newWorkoutName, advancedWorkout);
                     File oldFile =
                         WorkoutSerializer.getFile(getApplicationContext(), oldWorkoutName);
-                      if (!oldFile.delete())
-                          throw new IOException("Failed to delete old workout file");
-                      SharedPreferences prefs =
-                              PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                      String key = getString(R.string.pref_advanced_workout);
-                      if (oldWorkoutName.contentEquals(prefs.getString(key, ""))) {
-                          prefs.edit().putString(key, newWorkoutName).apply();
-                      }
+                    if (!oldFile.delete())
+                      throw new IOException("Failed to delete old workout file");
+                    SharedPreferences prefs =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    String key = getString(R.string.pref_advanced_workout);
+                    if (oldWorkoutName.contentEquals(prefs.getString(key, ""))) {
+                      prefs.edit().putString(key, newWorkoutName).apply();
+                    }
                     advancedWorkoutSpinner.setValue(newWorkoutName);
                     dialog.dismiss();
                     finish();
