@@ -101,8 +101,8 @@ public class AndroidBLEHRProvider extends BtHRBase implements HRProvider {
             }
 
             int length = value.length;
-            if (length == 0) {
-              log("onCharacteristicChanged length = 0");
+            if (length < 2 || length < 3 && isHeartRateInUINT16(value[0])) {
+              log("onCharacteristicChanged: insufficient data, length=" + length);
               return;
             }
 
@@ -248,9 +248,16 @@ public class AndroidBLEHRProvider extends BtHRBase implements HRProvider {
         }
 
         @Override
+        @SuppressWarnings("deprecation")
         public void onDescriptorRead(
-            BluetoothGatt gatt, BluetoothGattDescriptor btChar, int status, byte[] value) {
-          BluetoothGattCharacteristic mHRMcharac = btChar.getCharacteristic();
+                BluetoothGatt gatt, BluetoothGattDescriptor btDesc, int status) {
+          onDescriptorRead(gatt, btDesc, status, btDesc.getValue());
+        }
+
+        @Override
+        public void onDescriptorRead(
+                BluetoothGatt gatt, BluetoothGattDescriptor btDesc, int status, byte[] value) {
+          BluetoothGattCharacteristic mHRMcharac = btDesc.getCharacteristic();
           if (!enableNotification(gatt, true, mHRMcharac)) {
             reportConnectFailed("Failed to enable notification in onDescriptorRead");
           }
@@ -501,32 +508,18 @@ public class AndroidBLEHRProvider extends BtHRBase implements HRProvider {
     }
 
     boolean result;
-    if (onoff) {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        result =
-            gatt.writeDescriptor(clientConfig, BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
-                == BluetoothStatusCodes.SUCCESS;
-      } else {
-        @SuppressWarnings("deprecation")
-        boolean setValueResult =
-            clientConfig.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-        @SuppressWarnings("deprecation")
-        boolean writeDescResult = gatt.writeDescriptor(clientConfig);
-        result = setValueResult && writeDescResult;
-      }
+    byte[] notifValue = onoff
+            ? BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+            : BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      result = gatt.writeDescriptor(clientConfig, notifValue)
+              == BluetoothStatusCodes.SUCCESS;
     } else {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        result =
-            gatt.writeDescriptor(clientConfig, BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE)
-                == BluetoothStatusCodes.SUCCESS;
-      } else {
-        @SuppressWarnings("deprecation")
-        boolean setValueResult =
-            clientConfig.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
-        @SuppressWarnings("deprecation")
-        boolean writeDescResult = gatt.writeDescriptor(clientConfig);
-        result = setValueResult && writeDescResult;
-      }
+      @SuppressWarnings("deprecation")
+      boolean setValueResult = clientConfig.setValue(notifValue);
+      @SuppressWarnings("deprecation")
+      boolean writeDescResult = gatt.writeDescriptor(clientConfig);
+      result = setValueResult && writeDescResult;
     }
     if (result) {
       mNotificationsOn = onoff;
